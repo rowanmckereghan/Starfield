@@ -1,4 +1,5 @@
-NormalParticle[] star = new NormalParticle[3000];
+Particle[] star = new Particle[3000];
+Particle odd = new OddballParticle();
 void setup()
 {
 	size(500, 500);
@@ -17,6 +18,8 @@ void draw()
 	star[i].show();
 	star[i].move();
 	}
+	odd.show();
+	odd.move();
 }
 class NormalParticle implements Particle
 {
@@ -30,12 +33,12 @@ class NormalParticle implements Particle
 		angle  = (Math.random()*Math.PI*2);
 		starColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 	}
-	 void move()
+	public void move()
 	{
 		x = x + Math.cos(angle)*speed;
 		y = y + Math.sin(angle)*speed;
 	}
-	 void show()
+	public void show()
 	{
 		fill(starColor);
 		ellipse((float)x, (float)y, 10, 10);
@@ -48,7 +51,23 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	//your code here
+	double x, y, speed, angle;
+	color starColor;
+	OddballParticle()
+	{
+		x = 100;
+		y = 300;
+		starColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+	}
+	void move()
+	{
+		x = x + (Math.random()*15) - 6;
+	}
+	void show()
+	{
+		fill(starColor);
+		ellipse((float)x, (float)y, 50, 60);
+	}
 }
 class JumboParticle //uses inheritance
 {
