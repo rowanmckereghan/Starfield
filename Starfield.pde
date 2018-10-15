@@ -1,4 +1,4 @@
-Particle[] star = new Particle[1000];
+Particle[] star = new Particle[500];
 Particle odd = new OddballParticle();
 Particle big = new JumboParticle();
 void setup()
@@ -23,7 +23,6 @@ void draw()
 	}
 	big.show();
 	big.move();
-
 	
 }
 class NormalParticle implements Particle
@@ -35,7 +34,7 @@ class NormalParticle implements Particle
 	NormalParticle()
 	{
 		x = y = 250.0;
-		speed = Math.random()*5;
+		speed = Math.random()*2;
 		angle  = (Math.random()*Math.PI*2);
 		starColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 		opacity = 200;
@@ -44,7 +43,7 @@ class NormalParticle implements Particle
 	{
 		x = x + Math.cos(angle)*speed;
 		y = y + Math.sin(angle)*speed;
-		opacity = opacity - 1;
+		opacity = opacity - 2;
 	}
 	public void show()
 	{
@@ -59,23 +58,37 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	double x, y, speed, angle;
+	double x, y, speed, angle, yC, colorG, colorB;
 	color starColor;
 	OddballParticle()
 	{
-		x = 100;
+		x = 0;
 		y = 300;
 		starColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+		yC = 3;
+		colorG = 140;
+		colorB = 0;
 	}
 	void move()
 	{
-		x = x + (Math.random()*15) - 6;
-		if (x > 550) {x = 0;}
+		x = x + 2.8;
+		if (x > 550) 
+		{
+			x = 0;
+			y = 300;
+			yC = 3;
+			colorB = 0;
+			colorG = 140;
+		}
+		y = y -yC;
+		yC = yC -.03;
 	}
 	void show()
 	{
-		fill(starColor);
-		ellipse((float)x, (float)y, 50, 60);
+		fill(255.0, (float)colorG, (float)colorB);
+		ellipse((float)x, (float)y, 80, 80);
+		colorG = colorG + .8;
+		colorB = colorB + 1.3;
 	}
 }
 class JumboParticle extends NormalParticle
@@ -83,6 +96,6 @@ class JumboParticle extends NormalParticle
 	public void show()
 	{
 		fill(starColor);
-		ellipse((float)x, (float)y, 100, 100);
+		ellipse((float)x, (float)y, 10, 10);
 	}
 }
