@@ -1,6 +1,7 @@
 Particle[] star = new Particle[500];
 Particle odd = new OddballParticle();
 Particle big = new JumboParticle();
+backgroundColors a = new backgroundColors();
 boolean firework = false;
 void setup()
 {
@@ -14,7 +15,7 @@ for(int i = 0; i < star.length; i++)
 }
 void draw()
 {
-	background(75,0,130);
+	background(a.r,a.g,a.b);
 	fill(135,149,232);
 	rect(0, 250, 500, 250);
 	fill(221, 173, 149);
@@ -31,6 +32,7 @@ if  (firework == true)
 	star[i].move();
 	}
 }
+a.changeColor();
 }
 void mouseClicked()
 {
@@ -78,7 +80,7 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	double x, y, speed, angle, yC, colorG, colorB;
+	public double x, y, speed, angle, yC, colorG, colorB;
 	color starColor;
 	OddballParticle()
 	{
@@ -124,4 +126,31 @@ class JumboParticle extends NormalParticle
 		fill(starColor, opacity1);
 		ellipse((float)x, (float)y, 10, 10);
 	}
+}
+class backgroundColors extends OddballParticle
+{
+	float r, g ,b;
+	backgroundColors()
+	{
+		r = 135;
+		g = 206;
+		b = 235;
+	}
+	void changeColor()
+	{
+		if (b > 0)
+		{
+		r = r - 1.3;
+		g = g - 2.5;
+		b = b - 1.2;
+	}
+	else
+	{
+		r = 135;
+		g = 206;
+		b = 235;
+
+	}
+	}
+
 }
